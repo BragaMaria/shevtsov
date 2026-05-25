@@ -7,41 +7,90 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: #f0f4f8;
+            background: radial-gradient(circle at top left, rgba(60, 132, 255, 0.8), transparent 30%),
+                        radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.7), transparent 28%),
+                        linear-gradient(135deg, #0f172a, #1e293b);
+            overflow: hidden;
+            color: #f8fafc;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(248, 113, 113, 0.15), transparent 25%),
+                        radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.18), transparent 22%);
+            animation: pulse 12s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
         }
         .menu {
+            position: relative;
+            z-index: 1;
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 18px;
+            padding: 32px;
+            border-radius: 28px;
+            background: rgba(15, 23, 42, 0.85);
+            box-shadow: 0 30px 80px rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(12px);
         }
         .menu button {
-            display: inline-block;
-            padding: 14px 24px;
-            border-radius: 10px;
-            text-decoration: none;
-            color: #ffffff;
-            background: #007bff;
+            border: none;
+            border-radius: 18px;
+            padding: 16px 28px;
             font-size: 16px;
-            transition: background 0.2s ease;
+            color: #ffffff;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.25);
         }
-        .menu a.secondary {
-            background: #28a745;
+        .menu button:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.05);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.3);
         }
-        .menu a:hover {
-            opacity: 0.9;
+        .menu button:nth-child(1) {
+            background: linear-gradient(135deg, #3b82f6, #9333ea);
+        }
+        .menu button:nth-child(2) {
+            background: linear-gradient(135deg, #f97316, #f43f5e);
+        }
+        .menu button:nth-child(3) {
+            background: linear-gradient(135deg, #14b8a6, #0f766e);
+        }
+        .menu button span {
+            display: inline-block;
+            position: relative;
+        }
+        .menu button span::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -8px;
+            width: 16px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.45);
+            border-radius: 999px;
+            transform: translateX(-50%);
+            opacity: 0.85;
         }
     </style>
 </head>
 <body>
     <div class="menu">
-        <button class="secondary" onclick="window.location.href='../page1/index.html'">Перейти на игру</button>
-        <button onclick="window.location.href='../pageFacts/indexFact.html'" class="secondary">Перейти на факты</button>
+        <button onclick="window.location.href='../page1/index.html'"><span>Перейти на игру</span></button>
+        <button onclick="window.location.href='../pageFacts/indexFact.html'"><span>Перейти на факты</span></button>
+        <button onclick="window.location.href='../pageMath/indexMath.html'"><span>Перейти на математический тест</span></button>
     </div>
 </body>
 </html>
