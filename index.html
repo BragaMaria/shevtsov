@@ -120,8 +120,15 @@
     <div class="wrapper">
         <h1>Добро пожаловать на сайт Димы</h1>
         <p>Это динамичная стартовая страница с плавной анимацией фона, пульсирующей кнопкой и современным оформлением.</p>
-        <a class="button" href="./page1/index.html" target="_blank" rel="noopener noreferrer">Перейти на сайт</a>
+        <button class="button">Перейти на сайт</button>
         <div class="note">Если нужно, замените ссылку на настоящий адрес сайта Димы.</div>
     </div>
+
+    <script>
+        let button = document.querySelector('.button');
+        button.addEventListener('click', () => {
+            window.location.href = './pageMenu/index.html'; // Замените на реальный URL сайта Димы
+        });
+    </script>
 </body>
 </html>

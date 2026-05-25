@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Неполезные факты</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #111827;
+            --card-alt: #1f2937;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-soft: rgba(56, 189, 248, 0.18);
+            --border: rgba(148, 163, 184, 0.16);
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at top left, #1e293b 0%, #0f172a 42%, #020617 100%);
+            color: var(--text);
+        }
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px 64px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        header h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2.4rem, 4vw, 3.4rem);
+            letter-spacing: 0.02em;
+        }
+        header p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 1rem;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .card {
+            display: flex;
+            flex-direction: column;
+            border-radius: 24px;
+            overflow: hidden;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.97), rgba(17, 24, 39, 0.98));
+            border: 1px solid var(--border);
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
+            transition: transform 0.24s ease, box-shadow 0.24s ease;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 30px 66px rgba(15, 23, 42, 0.45);
+        }
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+        .card-content {
+            padding: 24px;
+        }
+        .card-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+        .card-title {
+            margin: 0 0 14px;
+            font-size: 1.25rem;
+            line-height: 1.3;
+        }
+        .card-text {
+            margin: 0;
+            color: #cbd5e1;
+            line-height: 1.75;
+        }
+        .card-tag {
+            margin-top: 20px;
+            display: inline-flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .tag {
+            font-size: 0.85rem;
+            color: #93c5fd;
+            background: rgba(56, 189, 248, 0.12);
+            border-radius: 999px;
+            padding: 8px 12px;
+        }
+        .footer-note {
+            margin-top: 40px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.96rem;
+        }
+        @media (max-width: 640px) {
+            .page { padding: 24px 16px 48px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <h1>Неполезные и бессмысленные факты</h1>
+            <p>Здесь собраны странные, забавные и слегка нелепые факты, которые не обязательно помогут в жизни, но точно развлекут.</p>
+        </header>
+
+        <div class="grid">
+            <article class="card">
+                <img src="https://picsum.photos/seed/fact1/600/400" alt="Картинка факта 1">
+                <div class="card-content">
+                    <div class="card-number">1</div>
+                    <h2 class="card-title">Крысы смеются, когда их щекочут</h2>
+                    <p class="card-text">Учёные заметили, что крысы издают короткие фыркающие звуки, похожие на смех, когда им щекочут живот. Этот смех слышен только в ультразвуковом диапазоне.</p>
+                    <div class="card-tag"><span class="tag">животные</span><span class="tag">ультразвук</span></div>
+                </div>
+            </article>
+
+            <article class="card">
+                <img src="https://picsum.photos/seed/fact2/600/400" alt="Картинка факта 2">
+                <div class="card-content">
+                    <div class="card-number">2</div>
+                    <h2 class="card-title">Бананы радиоактивны</h2>
+                    <p class="card-text">В бананах содержится калий-40 — радиоактивный изотоп. Но не переживай: чтобы получить вредную дозу, пришлось бы съесть миллионы бананов за один присест.</p>
+                    <div class="card-tag"><span class="tag">еда</span><span class="tag">наука</span></div>
+                </div>
+            </article>
+
+            <article class="card">
+                <img src="https://picsum.photos/seed/fact3/600/400" alt="Картинка факта 3">
+                <div class="card-content">
+                    <div class="card-number">3</div>
+                    <h2 class="card-title">В Австралии есть река, которая течёт вверх</h2>
+                    <p class="card-text">Это не магия, а оптический обман: в некоторых местах вода падает настолько медленно, что кажется, будто она течёт вверх. Такие явления называют рекой, текущей вверх.</p>
+                    <div class="card-tag"><span class="tag">география</span><span class="tag">оптика</span></div>
+                </div>
+            </article>
+
+            <article class="card">
+                <img src="https://picsum.photos/seed/fact4/600/400" alt="Картинка факта 4">
+                <div class="card-content">
+                    <div class="card-number">4</div>
+                    <h2 class="card-title">В Японии есть кафе для сов</h2>
+                    <p class="card-text">В некоторых японских городах можно выпить кофе, сидя рядом с живыми совами. Только не пытайся взять сову на руки — они любят свободу и не всегда дружелюбны.</p>
+                    <div class="card-tag"><span class="tag">культура</span><span class="tag">животные</span></div>
+                </div>
+            </article>
+
+            <article class="card">
+                <img src="https://picsum.photos/seed/fact5/600/400" alt="Картинка факта 5">
+                <div class="card-content">
+                    <div class="card-number">5</div>
+                    <h2 class="card-title">Пингвины делают предложение лапами</h2>
+                    <p class="card-text">Самцы императорских пингвинов дарят самкам камешки, чтобы показать серьёзность намерений. Теперь тебе есть с кем сравнить свой подарок.</p>
+                    <div class="card-tag"><span class="tag">птицы</span><span class="tag">романтика</span></div>
+                </div>
+            </article>
+
+            <article class="card">
+                <img src="https://picsum.photos/seed/fact6/600/400" alt="Картинка факта 6">
+                <div class="card-content">
+                    <div class="card-number">6</div>
+                    <h2 class="card-title">Человек не может чихнуть с открытыми глазами</h2>
+                    <p class="card-text">Это распространённый факт: мышцы рефлекторно закрывают глаза во время чиха. Попробуй — у тебя это не получится.</p>
+                    <div class="card-tag"><span class="tag">тело</span><span class="tag">факт</span></div>
+                </div>
+            </article>
+        </div>
+
+        <div class="footer-note">Обновляй страницу, чтобы добавлять новые бесполезные факты и картинки.</div>
+    </div>
+</body>
+</html>

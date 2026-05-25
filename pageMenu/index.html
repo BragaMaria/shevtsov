@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #f0f4f8;
+        }
+        .menu {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .menu button {
+            display: inline-block;
+            padding: 14px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #ffffff;
+            background: #007bff;
+            font-size: 16px;
+            transition: background 0.2s ease;
+        }
+        .menu a.secondary {
+            background: #28a745;
+        }
+        .menu a:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <button class="secondary" onclick="window.location.href='../page1/index.html'">Перейти на игру</button>
+        <button onclick="window.location.href='../pageFacts/indexFact.html'" class="secondary">Перейти на факты</button>
+    </div>
+</body>
+</html>
