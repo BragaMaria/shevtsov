@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сайт Димы</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg-start: #0f172a;
+            --bg-end: #1e3a8a;
+            --card: rgba(15, 23, 42, 0.95);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --button: #2563eb;
+            --button-hover: #1d4ed8;
+            --shadow: 0 24px 55px rgba(15, 23, 42, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+            animation: backgroundShift 12s ease infinite;
+        }
+
+        @keyframes backgroundShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            background: var(--card);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 24px;
+            padding: 42px 40px;
+            width: min(100%, 520px);
+            text-align: center;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            backdrop-filter: blur(18px);
+            animation: floatCard 6s ease-in-out infinite;
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(96, 165, 250, 0.24), transparent 28%),
+                        radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.18), transparent 28%);
+            pointer-events: none;
+        }
+
+        h1 {
+            margin: 0 0 18px;
+            font-size: clamp(2.15rem, 4vw, 2.8rem);
+            line-height: 1.05;
+        }
+
+        p {
+            margin: 0 0 30px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 30px;
+            border: none;
+            border-radius: 999px;
+            background: var(--button);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.24s ease, box-shadow 0.24s ease, background 0.24s ease;
+            box-shadow: 0 18px 30px rgba(37, 99, 235, 0.28);
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+
+        .button:hover,
+        .button:focus-visible {
+            background: var(--button-hover);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 24px 42px rgba(29, 78, 216, 0.34);
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 18px 30px rgba(37, 99, 235, 0.28); }
+            50% { box-shadow: 0 26px 48px rgba(37, 99, 235, 0.44); }
+        }
+
+        .note {
+            margin-top: 28px;
+            color: rgba(226, 232, 240, 0.7);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Добро пожаловать на сайт Димы</h1>
+        <p>Это динамичная стартовая страница с плавной анимацией фона, пульсирующей кнопкой и современным оформлением.</p>
+        <a class="button" href="./page1/index.html" target="_blank" rel="noopener noreferrer">Перейти на сайт</a>
+        <div class="note">Если нужно, замените ссылку на настоящий адрес сайта Димы.</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игра на странице</title>
+    <style>
+        :root {
+            --bg: #0b1220;
+            --card: #111b36;
+            --text: #eaf0ff;
+            --accent: #4f46e5;
+            --accent-soft: rgba(79, 70, 229, 0.18);
+            --danger: #f97316;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at top left, #2c3e70, #0b1220 35%);
+            color: var(--text);
+        }
+        .game-board {
+            width: min(100%, 760px);
+            padding: 32px;
+            border-radius: 28px;
+            background: linear-gradient(180deg, rgba(17, 27, 54, 0.95), rgba(17, 27, 54, 0.85));
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 2.5vw, 2.8rem);
+            letter-spacing: 0.02em;
+        }
+        .intro {
+            margin: 0 0 26px;
+            color: #b8c7ff;
+            line-height: 1.7;
+        }
+        .status {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(120px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .status-card {
+            padding: 18px 20px;
+            border-radius: 18px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 0 0 1px rgba(79, 70, 229, 0.08);
+        }
+        .status-card span {
+            display: block;
+            font-size: 0.94rem;
+            color: #9bb0ff;
+        }
+        .status-card strong {
+            display: block;
+            margin-top: 8px;
+            font-size: 1.7rem;
+            color: var(--text);
+        }
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 22px;
+            border: none;
+            border-radius: 999px;
+            background: var(--accent);
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+            box-shadow: 0 18px 35px rgba(79, 70, 229, 0.2);
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            background: #4338ca;
+        }
+        .button:active {
+            transform: translateY(0);
+        }
+        .arena {
+            position: relative;
+            min-height: 420px;
+            border-radius: 24px;
+            background: rgba(14, 21, 42, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            overflow: hidden;
+            box-shadow: inset 0 0 0 1px rgba(79, 70, 229, 0.08);
+        }
+        .arena::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at top left, rgba(79, 70, 229, 0.18), transparent 22%),
+                              radial-gradient(circle at bottom right, rgba(79, 70, 229, 0.12), transparent 32%);
+            pointer-events: none;
+        }
+        .target {
+            position: absolute;
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #a5b4fc 0%, #4f46e5 62%);
+            display: grid;
+            place-items: center;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12), 0 22px 40px rgba(15, 23, 42, 0.35);
+            transition: transform 0.12s ease;
+        }
+        .target:hover {
+            transform: scale(1.08);
+        }
+        .message {
+            margin-top: 18px;
+            padding: 16px 20px;
+            border-radius: 18px;
+            background: rgba(79, 70, 229, 0.14);
+            color: #dbeafe;
+            font-size: 0.98rem;
+            line-height: 1.6;
+        }
+        .game-over {
+            color: var(--danger);
+            font-weight: 700;
+        }
+        @media (max-width: 640px) {
+            .status { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-board">
+        <h1>Лови звёздочку</h1>
+        <p class="intro">Кликни по движущейся цели как можно больше раз за 20 секунд. Играй, запоминай позиции и побей свой рекорд!</p>
+
+        <div class="status">
+            <div class="status-card">
+                <span>Счёт</span>
+                <strong id="score">0</strong>
+            </div>
+            <div class="status-card">
+                <span>Время</span>
+                <strong id="time">20</strong>
+            </div>
+            <div class="status-card">
+                <span>Лучший</span>
+                <strong id="best">0</strong>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="button" id="startBtn">Начать игру</button>
+            <button class="button" id="resetBtn" type="button">Сбросить рекорд</button>
+        </div>
+
+        <div class="arena" id="arena">
+            <div class="target" id="target">★</div>
+        </div>
+
+        <div class="message" id="message">Нажми «Начать игру», чтобы поймать звёздочку.</div>
+    </div>
+
+    <script>
+        const startBtn = document.getElementById('startBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const scoreEl = document.getElementById('score');
+        const timeEl = document.getElementById('time');
+        const bestEl = document.getElementById('best');
+        const messageEl = document.getElementById('message');
+        const arena = document.getElementById('arena');
+        const target = document.getElementById('target');
+
+        let score = 0;
+        let timeLeft = 20;
+        let bestScore = 0;
+        let gameInterval = null;
+        let moveInterval = null;
+        let gameActive = false;
+
+        function updateStatus() {
+            scoreEl.textContent = score;
+            timeEl.textContent = timeLeft;
+            bestEl.textContent = bestScore;
+        }
+
+        function randomPosition() {
+            const areaRect = arena.getBoundingClientRect();
+            const targetRect = target.getBoundingClientRect();
+            const padding = 12;
+            const maxX = areaRect.width - targetRect.width - padding;
+            const maxY = areaRect.height - targetRect.height - padding;
+            const x = Math.random() * maxX + padding / 2;
+            const y = Math.random() * maxY + padding / 2;
+            target.style.left = `${x}px`;
+            target.style.top = `${y}px`;
+        }
+
+        function startGame() {
+            if (gameActive) return;
+            score = 0;
+            timeLeft = 20;
+            gameActive = true;
+            messageEl.textContent = 'Лови! Кликни по звёздочке как можно быстрее.';
+            target.style.display = 'grid';
+            updateStatus();
+            randomPosition();
+
+            moveInterval = setInterval(randomPosition, 900);
+            gameInterval = setInterval(() => {
+                timeLeft -= 1;
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+                updateStatus();
+            }, 1000);
+        }
+
+        function endGame() {
+            gameActive = false;
+            clearInterval(gameInterval);
+            clearInterval(moveInterval);
+            moveInterval = null;
+            gameInterval = null;
+            target.style.display = 'none';
+            if (score > bestScore) {
+                bestScore = score;
+                messageEl.innerHTML = `Игра окончена! Твой новый рекорд: <strong>${score}</strong> звёздочек.`;
+            } else {
+                messageEl.innerHTML = `Игра окончена! Ты собрал <strong>${score}</strong>. Попробуй ещё раз.`;
+            }
+            updateStatus();
+        }
+
+        target.addEventListener('click', () => {
+            if (!gameActive) return;
+            score += 1;
+            randomPosition();
+            updateStatus();
+            messageEl.textContent = 'Отлично! Продолжай ловить звёздочку.';
+        });
+
+        startBtn.addEventListener('click', startGame);
+        resetBtn.addEventListener('click', () => {
+            bestScore = 0;
+            updateStatus();
+            messageEl.textContent = 'Рекорд сброшен. Нажми «Начать игру» для новой попытки.';
+        });
+
+        window.addEventListener('resize', () => {
+            if (gameActive) randomPosition();
+        });
+
+        updateStatus();
+        target.style.display = 'none';
+    </script>
+</body>
+</html>
