@@ -271,7 +271,7 @@
             updateStatus();
             messageEl.textContent = 'Рекорд сброшен. Нажми «Начать игру» для новой попытки.';
         });
-        backBtn.addEventListener('click', () => { window.location.href = '../index.html'; });
+        backBtn.addEventListener('click', () => { window.location.href = '../pageMenu/index.html'; });
 
         window.addEventListener('resize', () => {
             if (gameActive) randomPosition();
